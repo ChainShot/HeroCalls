@@ -22,6 +22,7 @@ contract Hero is Storage {
     }
 }
 
+
 contract Behavior is Storage {
     function setFriend(address _friend) external {
         friend = _friend;
@@ -48,5 +49,6 @@ contract BadFriend {
     function sayHello() external {
         // TODO: if the behavior contract called this contract directly
         // what could stop the Hero from saying Hello to the Good Friend?
+        selfdestruct(msg.sender);
     }
 }

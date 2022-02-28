@@ -5,6 +5,7 @@ contract Storage {
     address public owner;
     address public behavior;
     bool public isSuperCharged;
+    bool public isInitialized;
 }
 
 // TODO: ensure the Hero can still superCharge, but can't be hacked!
@@ -30,6 +31,8 @@ contract Hero is Storage {
 contract Behavior is Storage {
     // just a constructor function 
     function initialize(address _owner) external {
+        require(!isInitialized);
+        isInitialized = true;
         owner = _owner;
     }
 
