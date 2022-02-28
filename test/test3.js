@@ -32,7 +32,8 @@ describe("Contracts3", () => {
     describe("after sending the alert from not hq", () => {
         it("should revert", async () => {
             const signer = ethers.provider.getSigner(notHQ);
-            expect(sidekick.connect(signer).alert(5, true)).to.be.reverted;
+
+            await expect(sidekick.connect(signer).alert(5, true)).to.be.reverted;
         });
     });
 });

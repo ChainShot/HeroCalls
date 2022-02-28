@@ -38,7 +38,9 @@ describe("Contracts5", () => {
 
     describe("after saying hello to the bad friend through behavior", () => {
         beforeEach(async () => {
+            // setting it to the bad friend
             await behavior.setFriend(badFriend.address);
+            // this is going to selfdestruct the behavior
             await behavior.sayHello();
         });
 
@@ -54,6 +56,11 @@ describe("Contracts5", () => {
                     .map(log => goodFriend.interface.parseLog(log))
                     .find(x => x.name === "Appreciated");
                 assert(!appreciated);
+            });
+    
+            it("should blow up the behavior contract", async () => {
+                const code = await ethers.provider.getCode(await behavior.address);
+                assert.equal(code, "0x");
             });
         });
     });
