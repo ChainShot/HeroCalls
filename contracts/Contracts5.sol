@@ -6,6 +6,7 @@ contract Storage {
     address public behavior;
 }
 
+// In this example, Hero delegatecalls Behavior, which delegatecalls the GoodFriend
 contract Hero is Storage {
     constructor(address _behavior, address _friend) {
         behavior = _behavior;
@@ -23,6 +24,9 @@ contract Hero is Storage {
 }
 
 contract Behavior is Storage {
+    // This function has a vulnerability:
+    // Anyone can call setFriend on the behavior directly
+    // With this vulnerability, kind of damage can be done? 
     function setFriend(address _friend) external {
         friend = _friend;
     }
