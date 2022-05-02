@@ -9,6 +9,7 @@ contract Storage {
 
 // TODO: ensure the Hero can still superCharge, but can't be hacked!
 contract Hero is Storage {
+    // on deployment, store the behavior address and initialize the owner
     constructor(address _owner, address _behavior) {
         behavior = _behavior;
         (bool success, ) = behavior.delegatecall(abi.encodeWithSignature(
@@ -25,10 +26,16 @@ contract Hero is Storage {
             require(success);
         }
     }
+
+    // when the world no longer needs a Hero
+    function destroy() external {
+        require(msg.sender == owner);
+        selfdestruct(msg.sender);
+    }
 }
 
 contract Behavior is Storage {
-    // just a constructor function 
+    // this function is called on contract deployment to set the owner
     function initialize(address _owner) external {
         owner = _owner;
     }

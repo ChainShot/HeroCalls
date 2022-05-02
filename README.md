@@ -26,7 +26,9 @@ When you have completed this TODO, run the tests with `npx hardhat test test/tes
 
 ## Challenge 4: Supercharge
 
-Open `contracts/Contracts4.sol` for the fourth challenge. There's an issue here. The `Hero` can be hacked and lose ownership of their contract! How is this happening? Can you spot the bug here and fix it so the Hero can still `superCharge` without being hacked? 
+Open `contracts/Contracts4.sol` for the fourth challenge. There's an issue here. The `Hero` can be hacked and **lose ownership** of their contract! If you take a look at the test cases you can see that the villian is taking over the contract and calling `destroy` to `selfdestruct` it!
+
+How is this happening? Can you spot the bug here and fix it so the Hero can still `superCharge` without being vulnerable? 
 
 When you have completed this TODO, run the tests with `npx hardhat test test/test4.js`
 

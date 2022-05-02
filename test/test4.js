@@ -49,6 +49,23 @@ describe("Contracts4", () => {
                 const owner = await heroContract.owner();
                 assert.equal(owner, heroEOA);
             });
+
+            describe("and attempting a self-destruct", () => {
+                beforeEach(async () => {
+                    const signer = await ethers.provider.getSigner(villianEOA);
+                    try {
+                        await heroContract.connect(signer).destroy();
+                    }
+                    catch(ex) {
+                        
+                    }
+                });
+
+                it("should contain code at the Hero address", async () => {
+                    const code = await ethers.provider.getCode(heroContract.address);
+                    assert.notEqual(code, "0x");
+                });
+            });
         });
     });
 });
